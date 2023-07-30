@@ -48,17 +48,25 @@ async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text="Ni puta idea de lo que dices Hulio."
     )
 
+async def print(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text= update.message.chat.title
+    )
+
 if __name__ == '__main__':
     application = ApplicationBuilder().token(token).build()
 
     poop_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), poop)
     count_handler = CommandHandler('count',count)
     clear_handler = CommandHandler('clear',clear)
+    printr_handler = CommandHandler('print',print)
     unknown_handler = MessageHandler(filters.COMMAND, unknown)
 
     application.add_handler(poop_handler)
     application.add_handler(count_handler)
     application.add_handler(clear_handler)
+    application.add_handler(printr_handler)
     application.add_handler(unknown_handler) # siempre el último en ser añadido
 
     
